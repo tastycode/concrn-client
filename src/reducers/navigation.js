@@ -1,22 +1,18 @@
-import { AppNavigator } from 'navigators/AppNavigator'
-
+import { AppNavigator } from 'navigators/app'
 import { NavigationActions } from 'react-navigation';
 import * as types from 'actions/types'
-import createReducer from 'lib/createReducer'
 
-
-const firstAction = AppNavigator.router.getActionForPathAndParams('Splash');
-const firstState = AppNavigator.router.getStateForAction(firstAction);
-
-export const nav = function nav(state = firstState, action) {
-  let nextState;
-  switch (action.type) {
-    default:
-      nextState = AppNavigator.router.getStateForAction(action, state);
+export const nav = (state, action) => {
+  let nextState
+  switch(action.type) {
+    case types.ONBOARDING_COMPLETE:
+      nextState = AppNavigator.router.getStateForAction(
+        NavigationActions.navigate({ routeName: 'Reporter' }),
+        state
+      );
       break;
+    default:
+      nextState = AppNavigator.router.getStateForAction(action, state)
   }
-
-  // Simply return the original `state` if `nextState` is null or undefined.
-  return nextState || state;
+  return nextState
 }
-

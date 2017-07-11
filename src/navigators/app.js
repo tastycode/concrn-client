@@ -3,14 +3,16 @@ import { Button } from 'react-native'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addNavigationHelpers, StackNavigator } from 'react-navigation';
-const meow = 'foo'
 import * as types from 'actions/types'
 
-import SplashScreen from 'components/nav/Splash'
+import OnboardingNavigator from 'navigators/onboarding'
+import { View, Text } from 'react-native'
 
 export const AppNavigator = StackNavigator({
-  Splash: { screen: SplashScreen }
+  Onboarding: { screen: OnboardingNavigator },
+  Reporter: { screen: () => (<View><Text>MeOw</Text></View>) }
 });
+
 
 export const AppWithNavigationState = ({ dispatch, nav, drawerOpen }) => {
   return (

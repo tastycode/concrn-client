@@ -1,1 +1,1 @@
-const MEOW = 'meow'
+export const ONBOARDING_COMPLETE = 'ONBOARDING_COMPLETE'

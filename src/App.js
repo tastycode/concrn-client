@@ -1,4 +1,4 @@
-import AppNavigator from './navigators/AppNavigator'
+import AppNavigator from './navigators/app'
 import React from 'react'
 import reducer from './reducers'
 import thunkMiddleware from 'redux-thunk'
@@ -54,7 +54,7 @@ const App = class App extends React.Component {
   componentWillMount() {
     persistStore(store, { storage: AsyncStorage }, () => {
       this.setState({rehydrated: true})
-    }).purge()
+    })
   }
   render() {
     /* This prevents the app from rendering until the redux store is rehydrated { */
