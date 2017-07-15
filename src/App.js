@@ -45,14 +45,18 @@ function configureStore(initialState) {
   return store
 }
 
-const store = configureStore({})
+
 
 const App = class App extends React.Component {
+  constructor() {
+    super()
+    this.store = configureStore({})
+  }
   state = {
     rehydrated: false
   }
   componentWillMount() {
-    persistStore(store, { storage: AsyncStorage }, () => {
+    persistStore(this.store, { storage: AsyncStorage }, () => {
       this.setState({rehydrated: true})
     })
   }
@@ -65,7 +69,7 @@ const App = class App extends React.Component {
     }
     /* } */
     return (
-      <Provider store={store}>
+      <Provider store={this.store}>
         <AppNavigator/>
       </Provider>
     )
