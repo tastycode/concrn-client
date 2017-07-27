@@ -51,7 +51,7 @@ export default ({navigation}) => (
           <Marker source={require('images/pin.png')}/>
         </MarkerContainer>
       </MapContainer>
-      <Button full>
+      <Button full onPress={ () => navigation.navigate('chat') }>
         <Text style={{color: 'white'}}>Start a report</Text>
       </Button>
     </View>

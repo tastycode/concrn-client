@@ -10,12 +10,14 @@ import OnboardingWelcome from 'components/onboarding/OnboardingWelcome'
 import OnboardingWhen from 'components/onboarding/OnboardingWhen'
 import OnboardingWhen3 from 'components/onboarding/OnboardingWhen3'
 import OnboardingProfile from 'components/onboarding/OnboardingProfile'
+import OnboardingVerify from 'components/onboarding/OnboardingVerify'
 
 export const OnboardingNavigator = StackNavigator({
   Welcome: { screen: OnboardingWelcome },
   When: { screen: OnboardingWhen },
   When3: { screen: OnboardingWhen3 },
-  Profile: { screen: OnboardingProfile }
+  Profile: { screen: OnboardingProfile },
+  Verify: { screen: OnboardingVerify }
 });
 
 OnboardingNavigator.navigationOptions = {

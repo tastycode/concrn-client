@@ -1,11 +1,10 @@
+
 import React from 'react'
 import { Container, Content, H1, Text, Button, Footer, FooterTab, Form, Input, Item, Label} from 'native-base'
 import { connect } from 'react-redux'
 import * as types from 'actions/types'
 import { reduxForm, Field } from 'redux-form'
-import DeviceInfo from 'react-native-device-info'
-import { validate } from 'actions/onboarding'
-
+import { verify } from 'actions/onboarding'
 
 
 const renderField = ({input, label, meta: { touched, error}, ...custom}) => (
@@ -15,29 +14,27 @@ const renderField = ({input, label, meta: { touched, error}, ...custom}) => (
   </Item>
 )
 
-const OnboardingProfile = ({handleSubmit}) => {
+const OnboardingVerify = ({error, handleSubmit}) => {
   const onSubmit = (values, dispatch) => {
-    let deviceId = DeviceInfo.getUniqueID()
-    dispatch(validate({
-      ...values,
-      deviceId
+    dispatch(verify({
+      ...values
     }))
   }
 
   return (
-      <Container>
-        <Content padder contentContainerStyle={styles.onboardContentContainer} style={styles.onboardContent}>
-          <Text style={styles.onboardText}>We need your name and number to follow up with your reports</Text>
-            <Field name="name" component={renderField} label="Name"/>
-            <Field name="phone" component={renderField} label="Phone Number"/>
-        </Content>
-        <Footer>
-          <FooterTab>
+    <Container>
+      <Content padder contentContainerStyle={styles.onboardContentContainer} style={styles.onboardContent}>
+        <Text style={styles.onboardText}>We've sent you a text with a 4-digit code, Enter it here to continue</Text>
+        <Field name="code" component={renderField} label="Verification Code"/>
+        {error && <Text>{error}</Text>}
+      </Content>
+      <Footer>
+        <FooterTab>
           <Button full onPress={handleSubmit(onSubmit)}>
-              <Text>Next</Text>
-            </Button>
-          </FooterTab>
-        </Footer>
+            <Text>Next</Text>
+          </Button>
+        </FooterTab>
+      </Footer>
     </Container>
   )
 }
@@ -63,6 +60,15 @@ const styles = {
   }
 };
 
+
+const mapStateToProps = (state) => {
+  return {
+    error: state.auth.error
+  }
+}
+
+const ConnectedOnboardingVerify = connect(mapStateToProps)(OnboardingVerify)
+
 export default reduxForm({
-  form: 'reporter'
-})(OnboardingProfile)
+  form: 'verify'
+})(ConnectedOnboardingVerify)

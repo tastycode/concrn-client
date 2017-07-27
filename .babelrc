@@ -5,6 +5,7 @@
     ["module-alias", [
         { "src": "src/lib", "expose": "lib"},
         { "src": "src/images", "expose": "images"},
+        { "src": "src/services", "expose": "services"},
         { "src": "src/components", "expose": "components"},
         { "src": "src/actions", "expose": "actions"},
         { "src": "src/reducers", "expose": "reducers"},
