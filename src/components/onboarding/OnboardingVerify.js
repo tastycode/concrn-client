@@ -25,7 +25,11 @@ const OnboardingVerify = ({error, handleSubmit}) => {
     <Container>
       <Content padder contentContainerStyle={styles.onboardContentContainer} style={styles.onboardContent}>
         <Text style={styles.onboardText}>We've sent you a text with a 4-digit code, Enter it here to continue</Text>
-        <Field name="code" component={renderField} label="Verification Code"/>
+        <Field
+          name="code"
+          component={renderField}
+          onSubmitEditing={() => handleSubmit(onSubmit)}
+          label="Verification Code"/>
         {error && <Text>{error}</Text>}
       </Content>
       <Footer>

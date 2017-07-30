@@ -1,10 +1,10 @@
 import axios from 'axios'
 function apiRequest(method, path) {
-  return async (params) => {
+  return async (data) => {
     const response = await axios({
       method,
       url: `http://localhost:3000/api${path}`,
-      params
+      data
     })
     return response.data
   }
@@ -14,5 +14,8 @@ export default {
     validate: apiRequest('POST', '/devices/validate'),
     create: apiRequest('POST', '/devices'),
     verify: apiRequest('POST', '/devices/verify')
+  },
+  report: {
+    create: apiRequest('POST', '/reports')
   }
 }

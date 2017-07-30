@@ -13,7 +13,7 @@ export function validate({ phone, deviceId, name}) {
       response = await ConcrnClient.device.validate({phone, device_id: deviceId})
       await dispatch({
         type: types.ONBOARDING_STORE,
-        reporter_id: response.reporter_id
+        reporterId: response.reporter_id
       })
       await dispatch({
         type: types.ONBOARDING_COMPLETE

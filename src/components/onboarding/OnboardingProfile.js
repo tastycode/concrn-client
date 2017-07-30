@@ -29,7 +29,12 @@ const OnboardingProfile = ({handleSubmit}) => {
         <Content padder contentContainerStyle={styles.onboardContentContainer} style={styles.onboardContent}>
           <Text style={styles.onboardText}>We need your name and number to follow up with your reports</Text>
             <Field name="name" component={renderField} label="Name"/>
-            <Field name="phone" component={renderField} label="Phone Number"/>
+            <Field
+              name="phone"
+              component={renderField}
+              onSubmitEditing={() => handleSubmit(onSubmit)}
+              label="Phone Number"/>
+
         </Content>
         <Footer>
           <FooterTab>

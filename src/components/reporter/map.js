@@ -1,8 +1,10 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
 import { View, Text, StyleSheet, TouchableOpacity} from 'react-native'
 import MapView from 'react-native-maps';
 import styled from 'styled-components/native'
+import * as actions from 'actions/reporter'
 
 import { Button } from 'native-base'
 
@@ -35,24 +37,44 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ({navigation}) => (
-    <View style={{ flex: 1}}>
-      <MapContainer>
-        <MapView
-          style={{flex: 1}}
-          initialRegion={{
-            latitude: 37.78825,
-            longitude: -122.4324,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          }}
-        />
-        <MarkerContainer pointerEvents={'none'}>
-          <Marker source={require('images/pin.png')}/>
-        </MarkerContainer>
-      </MapContainer>
-      <Button full onPress={ () => navigation.navigate('chat') }>
-        <Text style={{color: 'white'}}>Start a report</Text>
-      </Button>
-    </View>
-)
+class Map extends React.Component {
+  state = {
+    region: {
+      latitude: 37.78825,
+      longitude: -122.4324,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421,
+    }
+  }
+
+  _regionChanged(region) {
+    this.setState({region})
+  }
+
+  createReport(args) {
+    this.props.dispatch(actions.createReport({
+      ...this.state.region
+    }))
+  }
+
+  render() {
+    return (
+      <View style={{ flex: 1}}>
+        <MapContainer>
+          <MapView
+            style={{flex: 1}}
+            region={this.state.region}
+            onRegionChange={this._regionChanged.bind(this)}
+          />
+          <MarkerContainer pointerEvents={'none'}>
+            <Marker source={require('images/pin.png')}/>
+          </MarkerContainer>
+        </MapContainer>
+        <Button full onPress={this.createReport.bind(this)}>
+          <Text style={{color: 'white'}}>Start a report</Text>
+        </Button>
+      </View>
+    )
+  }
+}
+export default connect()(Map)

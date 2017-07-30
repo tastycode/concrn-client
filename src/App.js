@@ -4,6 +4,8 @@ import reducer from './reducers'
 import thunkMiddleware from 'redux-thunk'
 import { AppRegistry, AsyncStorage, View, Text } from 'react-native'
 import { Provider } from 'react-redux'
+import ActionCable from 'react-native-actioncable'
+import ActionCableProvider from 'react-actioncable-provider'
 import { createLogger } from 'redux-logger'
 import { persistStore, autoRehydrate } from 'redux-persist'
 import { createStore,
@@ -45,7 +47,7 @@ function configureStore(initialState) {
   return store
 }
 
-
+const cable = ActionCable.createConsumer('ws://localhost:3000/cable')
 
 const App = class App extends React.Component {
   constructor() {
@@ -70,7 +72,9 @@ const App = class App extends React.Component {
     /* } */
     return (
       <Provider store={this.store}>
-        <AppNavigator/>
+        <ActionCableProvider cable={cable}>
+          <AppNavigator/>
+        </ActionCableProvider>
       </Provider>
     )
   }
