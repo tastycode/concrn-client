@@ -19,6 +19,20 @@ export function createReport({latitude, longitude}) {
   }
 }
 
+export function reportSendMessage({reportId, text}) {
+  return async function(dispatch, getState) {
+    const reporterId = getState().auth.reporterId
+    const response = await ConcrnClient.report.messages.create({
+      reportId,
+      message: {
+        report_id: reportId,
+        reporter_id: reporterId,
+        text
+      }
+    })
+  }
+}
+
 export function reportMessages(id) {
   return async function(id) {
     const response = await ConcrnClient.report.messages({id: id})
