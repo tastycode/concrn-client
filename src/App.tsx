@@ -2,15 +2,15 @@ import AppNavigator from './navigators/app'
 import React from 'react'
 import reducer from './reducers'
 import thunkMiddleware from 'redux-thunk'
-import { AppRegistry, AsyncStorage, View, Text } from 'react-native'
+import { AppRegistry, AsyncStorage, View,  } from 'react-native'
 import { Provider } from 'react-redux'
 import ActionCable from 'react-native-actioncable'
 import ActionCableProvider from 'react-actioncable-provider'
 import { createLogger } from 'redux-logger'
 import { persistStore, autoRehydrate } from 'redux-persist'
+import { Store } from 'redux'
 import { createStore,
           applyMiddleware,
-          combineReducers,
           compose
           } from 'redux'
 
@@ -23,7 +23,7 @@ XMLHttpRequest = GLOBAL.originalXMLHttpRequest ?
 console.ignoredYellowBox = ['Warning: BackAndroid']
 
 // Middleware that logs actions
-const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__  })
+const loggerMiddleware = createLogger({ predicate: () => __DEV__  })
 
 function configureStore(initialState) {
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -50,6 +50,8 @@ function configureStore(initialState) {
 const cable = ActionCable.createConsumer('ws://localhost:3000/cable')
 
 const App = class App extends React.Component {
+  private store: Store<any>
+
   constructor() {
     super()
     this.store = configureStore({})
@@ -58,7 +60,7 @@ const App = class App extends React.Component {
     rehydrated: false
   }
   componentWillMount() {
-    persistStore(this.store, { storage: AsyncStorage }, () => {
+    persistStore(this.store, { storage: AsyncStorage }, () => {/*https://github.com/rt2zz/redux-persist/issues/395*/
       this.setState({rehydrated: true})
     })
   }

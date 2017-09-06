@@ -13,14 +13,8 @@ export const AppNavigator = DrawerNavigator({
   Onboarding: { screen: OnboardingNavigator },
   Reporter: { screen: ReporterNavigator }
 }, {
-  navigationOptions: {
-    header: false
-  }
 });
 
-AppNavigator.navigationOptions = {
-  header: null,
-}
 
 
 export const AppWithNavigationState = ({ dispatch, nav, drawerOpen }) => {

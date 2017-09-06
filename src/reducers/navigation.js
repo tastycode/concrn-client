@@ -2,7 +2,10 @@ import { AppNavigator } from 'navigators/app'
 import { NavigationActions } from 'react-navigation';
 import * as types from 'actions/types'
 
-export const nav = (state, action) => {
+const initialState = AppNavigator.router.getStateForAction(
+  AppNavigator.router.getActionForPathAndParams('Onboarding'))
+
+export const nav = (state = initialState, action) => {
   let nextState
   switch(action.type) {
     case types.ONBOARDING_COMPLETE:
@@ -12,7 +15,10 @@ export const nav = (state, action) => {
       );
       break;
     default:
-      nextState = AppNavigator.router.getStateForAction(action, state)
+      nextState = {
+        ...state,
+        ...AppNavigator.router.getStateForAction(action, state)
+      }
   }
   return nextState
 }

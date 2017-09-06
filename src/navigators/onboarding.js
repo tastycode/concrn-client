@@ -21,6 +21,8 @@ export const OnboardingNavigator = StackNavigator({
 });
 
 OnboardingNavigator.navigationOptions = {
+  title: null,
+  drawerLabel: null,
   header: null,
 }
 
