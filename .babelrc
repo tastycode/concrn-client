@@ -1,6 +1,7 @@
 {
   "presets": ["react-native"],
   "plugins": [
+    ["transform-decorators-legacy"],
     ["babel-plugin-react-native-config"],
     ["module-alias", [
         { "src": "src/lib", "expose": "lib"},

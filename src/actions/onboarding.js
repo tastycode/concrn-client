@@ -5,7 +5,7 @@ import * as types from 'actions/types'
 export function validate({ phone, deviceId, name}) {
   return async (dispatch, getState) => {
     let response
-    dispatch({
+    await dispatch({
       type: types.ONBOARDING_STORE,
       phone, deviceId, name
     })
@@ -20,6 +20,7 @@ export function validate({ phone, deviceId, name}) {
       })
     }
     catch (e) {
+      console.log(e);
       response = await ConcrnClient.device.create({phone, device_id: deviceId})
       await dispatch(NavigationActions.navigate({routeName: 'Verify'}))
     }
@@ -40,6 +41,7 @@ export function verify({code}) {
       })
     }
     catch (e) {
+      console.log(e);
       await dispatch({
         type: types.ONBOARDING_FAIL,
         error: 'The code you entered was incorrect'

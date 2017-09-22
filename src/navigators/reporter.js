@@ -12,7 +12,7 @@ const ReporterNavigator = StackNavigator({
 }, {
   navigationOptions: ({navigation}) => {
     return {
-      //headerLeft: (<Icon name="menu" size={35} onPress={ () => navigation.navigate('DrawerOpen') } />),
+      headerLeft: (<Icon name="menu" size={35} onPress={ () => navigation.navigate('DrawerOpen') } />),
       title: 'Concrn',
       headerStyle: { backgroundColor: '#8a6de9' },
       headerTitleStyle: { color: '#ffffff' }

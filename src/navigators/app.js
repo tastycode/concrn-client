@@ -7,6 +7,7 @@ import * as types from 'actions/types'
 
 import OnboardingNavigator from 'navigators/onboarding'
 import ReporterNavigator from 'navigators/reporter'
+import ResponderNavigator from 'navigators/responder'
 import { View, Text } from 'react-native'
 
 export const AppNavigator = DrawerNavigator({

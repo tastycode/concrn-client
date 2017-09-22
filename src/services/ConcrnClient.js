@@ -12,6 +12,8 @@ function apiRequest(method, path) {
     return response.data
   }
 }
+
+
 export default {
   device: {
     validate: apiRequest('POST', '/devices/validate'),

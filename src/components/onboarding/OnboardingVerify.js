@@ -1,6 +1,7 @@
 
 import React from 'react'
 import { Container, Content, H1, Text, Button, Footer, FooterTab, Form, Input, Item, Label} from 'native-base'
+import { View } from 'react-native'
 import { connect } from 'react-redux'
 import * as types from 'actions/types'
 import { reduxForm, Field } from 'redux-form'
@@ -9,7 +10,7 @@ import { verify } from 'actions/onboarding'
 
 const renderField = ({input, label, meta: { touched, error}, ...custom}) => (
   <Item floatingLabel>
-    <Label style={{color: '#ffffff'}}>{label}</Label>
+    <Label>{label}</Label>
     <Input {...input} {...custom}/>
   </Item>
 )
@@ -70,6 +71,8 @@ const mapStateToProps = (state) => {
     error: state.auth.error
   }
 }
+
+const tmp = () => <View><Text>meow</Text></View>
 
 const ConnectedOnboardingVerify = connect(mapStateToProps)(OnboardingVerify)
 
