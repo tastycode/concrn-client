@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { TouchableOpacity, Switch, Text } from 'react-native'
 import styled from 'styled-components/native'
 import * as R from 'ramda'
+import * as types from 'actions/types'
 const Panel = styled.View`
   background-color: #363636;
 `
@@ -23,17 +24,21 @@ const ControlText = styled.Text`
 
 @connect(state => {
   return {
-    partner: R.path(['responder','partner'], state)
+    partner: R.path(['responder','partner'], state),
+    isAvailable: R.path(['responder', 'isAvailable'], state)
   }
 })
 export default class extends React.Component {
   render() {
     console.log('panel props', this.props)
     const chooseLabel = (this.props.partner && this.props.partner.name) || 'CHOOSE '
+    const onAvailabilityChange = (value) => {
+      this.props.dispatch({type: types.RESPONDER_AVAILABILITY_SET, availability: value})
+    }
     return <Panel>
             <ControlGroup>
               <ControlLabel>Available?</ControlLabel>
-              <Switch value={false}/>
+              <Switch value={this.props.isAvailable} onValueChange={onAvailabilityChange}/>
             </ControlGroup>
             <ControlGroup>
               <ControlLabel>Partner</ControlLabel>

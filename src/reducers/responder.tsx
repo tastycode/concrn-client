@@ -10,6 +10,12 @@ const responderReducers = {
       }
       return state
     }
+  }),
+  isAvailable: createReducer(false, {
+    [types.RESPONDER_AVAILABILITY_SET](state, action) {
+      state = action.availability
+      return state
+    }
   })
 }
 
