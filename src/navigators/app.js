@@ -3,6 +3,7 @@ import { Button } from 'react-native'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addNavigationHelpers, DrawerNavigator, StackNavigator } from 'react-navigation';
+import DrawerContent from 'components/nav/drawer'
 import * as types from 'actions/types'
 
 import OnboardingNavigator from 'navigators/onboarding'
@@ -14,6 +15,7 @@ export const AppNavigator = DrawerNavigator({
   Onboarding: { screen: OnboardingNavigator },
   Reporter: { screen: ReporterNavigator }
 }, {
+  contentComponent: DrawerContent
 });
 
 

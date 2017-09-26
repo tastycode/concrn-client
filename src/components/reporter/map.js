@@ -9,6 +9,7 @@ import * as actions from "actions/reporter";
 import ResponderPanel from "components/responder/panel"
 import Modal from 'react-native-modalbox'
 import SearchResponders from "components/responder/search"
+import * as R from 'ramda'
 
 import { Button } from "native-base";
 
@@ -39,10 +40,7 @@ const styles = StyleSheet.create({
   }
 });
 
-@connect(state => ({
-  role: state.auth.role
-}))
-export default class Map extends React.Component {
+class Map extends React.Component {
   state = {
     region: {
       latitude: 37.78825,
@@ -65,7 +63,6 @@ export default class Map extends React.Component {
   }
 
   render() {
-    const isResponder = this.props.role == "responder";
     const onChoose = () => this.modal.open()
     const onCancel = () => this.modal.close()
     const onChosen = (responder) => {
@@ -79,7 +76,7 @@ export default class Map extends React.Component {
         <Modal ref={ modal => this.modal = modal}>
           <SearchResponders onCancel={() => this.modal.close()} onChosen={onChosen}/>
         </Modal>
-        <ResponderPanel onChoose={() => this.modal.open()}/>
+        {this.props.isResponder && <ResponderPanel onChoose={() => this.modal.open()}/>}
         <MapContainer>
           <MapView
             style={{ flex: 1 }}
@@ -97,3 +94,9 @@ export default class Map extends React.Component {
     );
   }
 }
+
+export default connect (state => {
+  return {
+    isResponder: R.pipe(R.path(['auth', 'role']), R.contains('responder'))(state)
+  }
+})(Map)

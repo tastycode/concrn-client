@@ -22,30 +22,28 @@ const ControlText = styled.Text`
   color: white;
 `
 
-@connect(state => {
+const ResponderPanel = ({partner, onChoose, isAvailable, dispatch}) => {
+    const chooseLabel = (partner && partner.name) || 'CHOOSE '
+    const onAvailabilityChange = (value) => {
+      dispatch({type: types.RESPONDER_AVAILABILITY_SET, availability: value})
+    }
+
+    return <Panel>
+            <ControlGroup>
+              <ControlLabel>Available?</ControlLabel>
+              <Switch value={isAvailable} onValueChange={onAvailabilityChange}/>
+            </ControlGroup>
+            <ControlGroup>
+              <ControlLabel>Partner</ControlLabel>
+              <TouchableOpacity onPress={() => onChoose()}><ControlText>{chooseLabel} ➔</ControlText></TouchableOpacity>
+            </ControlGroup>
+          </Panel>
+
+}
+export default connect(state => {
   return {
     partner: R.path(['responder','partner'], state),
     isAvailable: R.path(['responder', 'isAvailable'], state)
   }
-})
-export default class extends React.Component {
-  render() {
-    console.log('panel props', this.props)
-    const chooseLabel = (this.props.partner && this.props.partner.name) || 'CHOOSE '
-    const onAvailabilityChange = (value) => {
-      this.props.dispatch({type: types.RESPONDER_AVAILABILITY_SET, availability: value})
-    }
-    return <Panel>
-            <ControlGroup>
-              <ControlLabel>Available?</ControlLabel>
-              <Switch value={this.props.isAvailable} onValueChange={onAvailabilityChange}/>
-            </ControlGroup>
-            <ControlGroup>
-              <ControlLabel>Partner</ControlLabel>
-              <TouchableOpacity onPress={() => this.props.onChoose()}><ControlText>{chooseLabel} ➔</ControlText></TouchableOpacity>
-            </ControlGroup>
-          </Panel>
-
-  }
-}
+})(ResponderPanel)
 
