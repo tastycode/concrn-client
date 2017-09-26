@@ -1,11 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
+import * as types from 'actions/types';
 
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import MapView from "react-native-maps";
 import styled from "styled-components/native";
 import * as actions from "actions/reporter";
 import ResponderPanel from "components/responder/panel"
+import Modal from 'react-native-modalbox'
+import SearchResponders from "components/responder/search"
 
 import { Button } from "native-base";
 
@@ -63,9 +66,20 @@ export default class Map extends React.Component {
 
   render() {
     const isResponder = this.props.role == "responder";
+    const onChoose = () => this.modal.open()
+    const onCancel = () => this.modal.close()
+    const onChosen = (responder) => {
+      console.log('chosen', responder)
+      this.modal.close()
+      this.props.dispatch({type: types.RESPONDER_PARTNER_CHOSEN, responder})
+    }
+
     return (
       <View style={{ flex: 1 }}>
-        <ResponderPanel/>
+        <Modal ref={ modal => this.modal = modal}>
+          <SearchResponders onCancel={() => this.modal.close()} onChosen={onChosen}/>
+        </Modal>
+        <ResponderPanel onChoose={() => this.modal.open()}/>
         <MapContainer>
           <MapView
             style={{ flex: 1 }}

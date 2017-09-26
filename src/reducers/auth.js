@@ -1,4 +1,5 @@
 import createReducer from 'lib/createReducer'
+import { combineReducers } from 'redux'
 import * as types from 'actions/types'
 
 export const auth = createReducer({
