@@ -9,9 +9,8 @@ import { verify } from 'actions/onboarding'
 
 
 const renderField = ({input, label, meta: { touched, error}, ...custom}) => (
-  <Item floatingLabel>
-    <Label>{label}</Label>
-    <Input {...input} {...custom}/>
+  <Item>
+    <Input placeholder={label} {...input} {...custom} style={{color: '#ffffff'}} placeholderTextColor="#dfdfdf"/>
   </Item>
 )
 

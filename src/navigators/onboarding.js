@@ -13,17 +13,19 @@ import OnboardingProfile from 'components/onboarding/OnboardingProfile'
 import OnboardingVerify from 'components/onboarding/OnboardingVerify'
 
 export const OnboardingNavigator = StackNavigator({
+  Splash: { screen: SplashScreen },
   Welcome: { screen: OnboardingWelcome },
   When: { screen: OnboardingWhen },
   When3: { screen: OnboardingWhen3 },
   Profile: { screen: OnboardingProfile },
   Verify: { screen: OnboardingVerify }
+}, {
+  headerMode:"none",
 });
 
 OnboardingNavigator.navigationOptions = {
-  title: null,
-  drawerLabel: null,
   header: null,
+  headerStyle: { backgroundColor: '#8a6d00' }
 }
 
 export default OnboardingNavigator

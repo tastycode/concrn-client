@@ -133,6 +133,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-svg')
     compile(project(':react-native-maps')) {
         exclude group: 'com.google.android.gms', module: 'play-services-base'
         exclude group: 'com.google.android.gms', module: 'play-services-maps'
@@ -141,7 +142,6 @@ dependencies {
     compile 'com.google.android.gms:play-services-maps:11.+'
     compile 'com.google.android.gms:play-services-location:+'
 
-    compile project(':react-native-svg')
     compile project(':react-native-vector-icons')
     compile project(':react-native-device-info')
     compile fileTree(dir: "libs", include: ["*.jar"])

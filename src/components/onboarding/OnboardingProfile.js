@@ -1,5 +1,6 @@
 import React from 'react'
 import { Container, Content, H1, Text, Button, Footer, FooterTab, Form, Input, Item, Label} from 'native-base'
+import styled from 'styled-components/native'
 import { connect } from 'react-redux'
 import * as types from 'actions/types'
 import { reduxForm, Field } from 'redux-form'
@@ -7,11 +8,18 @@ import DeviceInfo from 'react-native-device-info'
 import { validate } from 'actions/onboarding'
 
 
+const FormControls = styled.View`
+  padding-top: 30px;
+`
+
+const FormItem = styled(Item)`
+  padding-top: 20px;
+`
+
 
 const renderField = ({input, label, meta: { touched, error}, ...custom}) => (
-  <Item floatingLabel>
-    <Label style={{color: '#ffffff'}}>{label}</Label>
-    <Input {...input} {...custom}/>
+  <Item>
+    <Input placeholder={label} {...input} {...custom} style={{color: '#ffffff'}} placeholderTextColor="#dfdfdf"/>
   </Item>
 )
 
@@ -27,13 +35,15 @@ const OnboardingProfile = ({handleSubmit}) => {
   return (
       <Container>
         <Content padder contentContainerStyle={styles.onboardContentContainer} style={styles.onboardContent}>
-          <Text style={styles.onboardText}>We need your name and number to follow up with your reports</Text>
+          <Text padder style={styles.onboardText}>We need your name and number to follow up with your reports</Text>
+          <FormControls>
             <Field name="name" component={renderField} label="Name"/>
             <Field
               name="phone"
               component={renderField}
               onSubmitEditing={() => handleSubmit(onSubmit)}
               label="Phone Number"/>
+          </FormControls>
 
         </Content>
         <Footer>

@@ -15,7 +15,7 @@ export const AppNavigator = DrawerNavigator({
   Onboarding: { screen: OnboardingNavigator },
   Reporter: { screen: ReporterNavigator }
 }, {
-  contentComponent: DrawerContent
+  contentComponent: DrawerContent,
 });
 
 
