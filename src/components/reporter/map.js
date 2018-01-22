@@ -97,6 +97,6 @@ class Map extends React.Component {
 
 export default connect (state => {
   return {
-    isResponder: R.pipe(R.path(['auth', 'role']), R.contains('responder'))(state)
+    isResponder: R.pipe(R.path(['auth', 'responderId']), R.isNil(), R.not())(state)
   }
 })(Map)

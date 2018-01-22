@@ -8,9 +8,7 @@ const Checklist = () => <View><Text>Checklist</Text></View>;
 const ResponderMap = () => <View><Text>ResponderMap</Text></View>;
 
 const ResponderNavigator = StackNavigator({
-  about: { screen: About },
-  checklist: { screen: Checklist },
-  responderMap: { screen: ResponderMap }
+  About: { screen: About },
 }, {
   navigationOptions: ({navigation}) => {
     return {

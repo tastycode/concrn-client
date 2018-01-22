@@ -5,6 +5,7 @@ import { View, Text, Switch } from 'react-native'
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 import * as types from 'actions/types'
 import * as R from 'ramda'
+import * as responderActions from 'actions/responder'
 
 const DrawerOuterContainer = styled.View`
   flex: 1;
@@ -34,8 +35,9 @@ const ItemLabel = styled.Text`
 const Drawer = ({isResponder, navigation}) => {
   const{ dispatch } = navigation
   const toggleResponder = (value) => {
-    const roles = value ? ['responder'] : []
-    dispatch({type: types.ONBOARDING_STORE, role: roles})
+    if (value) {
+      dispatch(responderActions.validate())
+    }
   }
 
   return <DrawerOuterContainer>
@@ -68,6 +70,6 @@ const Drawer = ({isResponder, navigation}) => {
 
 export default connect(state => {
   return {
-    isResponder: R.pipe(R.path(['auth', 'role']), R.contains('responder'))(state)
+    isResponder: R.pipe(R.path(['auth', 'responderId']), R.isNil(), R.not())(state)
   }
 })(Drawer)

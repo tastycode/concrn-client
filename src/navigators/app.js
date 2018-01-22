@@ -13,7 +13,8 @@ import { View, Text } from 'react-native'
 
 export const AppNavigator = DrawerNavigator({
   Onboarding: { screen: OnboardingNavigator },
-  Reporter: { screen: ReporterNavigator }
+  Reporter: { screen: ReporterNavigator },
+  Responder: { screen: ResponderNavigator }
 }, {
   contentComponent: DrawerContent,
 });
