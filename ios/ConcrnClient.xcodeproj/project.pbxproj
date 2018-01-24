@@ -633,6 +633,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				7ADD6A1AD90F412F94761940 /* Resources */,
 				C8717E121F71F3DD00DC259D /* Recovered References */,
+				C819015F2017E9ED0042B854 /* Frameworks */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -647,6 +648,13 @@
 				2D02E4901E0B4A5D006451C7 /* ConcrnClient-tvOSTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		C819015F2017E9ED0042B854 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		C8717E121F71F3DD00DC259D /* Recovered References */ = {
@@ -784,6 +792,11 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = U7B9P7LVE8;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;

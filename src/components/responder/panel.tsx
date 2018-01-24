@@ -4,6 +4,7 @@ import { TouchableOpacity, Switch, Text } from 'react-native'
 import styled from 'styled-components/native'
 import * as R from 'ramda'
 import * as types from 'actions/types'
+import * as responderActions from 'actions/responder'
 const Panel = styled.View`
   background-color: #363636;
 `
@@ -25,7 +26,10 @@ const ControlText = styled.Text`
 const ResponderPanel = ({partner, onChoose, isAvailable, dispatch}) => {
     const chooseLabel = (partner && partner.name) || 'CHOOSE '
     const onAvailabilityChange = (value) => {
-      dispatch({type: types.RESPONDER_AVAILABILITY_SET, availability: value})
+      dispatch(responderActions.updateInitial({
+          available: value
+      }))
+      //spatch({type: types.RESPONDER_AVAILABILITY_SET, availability: value})
     }
 
     return <Panel>
@@ -42,8 +46,7 @@ const ResponderPanel = ({partner, onChoose, isAvailable, dispatch}) => {
 }
 export default connect(state => {
   return {
-    partner: R.path(['responder','partner'], state),
-    isAvailable: R.path(['responder', 'isAvailable'], state)
+    partner: R.path(['auth', 'responder','partner'], state),
+    isAvailable: R.path(['auth', 'responder', 'available'], state)
   }
 })(ResponderPanel)
-

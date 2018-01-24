@@ -28,6 +28,7 @@ export default {
     }
   },
   responder: {
-    validate: apiRequest('GET', '/responders/device')
+    validate: apiRequest('GET', '/responders/device'),
+    update: apiRequest('PUT', '/responders/:id')
   }
 }
