@@ -1,0 +1,27 @@
+{
+  "plugins": [
+    "prettier"
+  ],
+  "parser": "babel-eslint",
+  "extends": [
+    "prettier"
+  ],
+  "rules": {
+    "prettier/prettier": ["error", {
+      "trailingComma": "all",
+      "semi": false,
+      "parser": "babylon"
+    }],
+  },
+  "parserOptions": {
+    "ecmaVersion": 2016,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "env": {
+    "es6": true,
+    "node": true
+  }
+}
