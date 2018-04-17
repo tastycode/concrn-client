@@ -5,7 +5,6 @@ function apiRequest(method, path) {
     const replacedPath = Object.keys(data).reduce((path, key) => {
       return path.replace(`:${key}`, data[key])
     }, path)
-    alert(Config.API_URL)
     const apiUrl = Config.API_URL
     const response = await axios({
       method,

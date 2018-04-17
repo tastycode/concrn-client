@@ -1,6 +1,4 @@
-import AppNavigator from './navigators/app'
 import React from 'react'
-import reducer from './reducers'
 import thunkMiddleware from 'redux-thunk'
 import { AppRegistry, AsyncStorage, View,  } from 'react-native'
 import { Provider } from 'react-redux'
@@ -13,6 +11,9 @@ import { createStore,
           applyMiddleware,
           compose
           } from 'redux'
+
+import reducer from './reducers'
+import AppNavigator from './navigators/AppNavigator'
 
 // See network requests in debugger
 XMLHttpRequest = GLOBAL.originalXMLHttpRequest ?

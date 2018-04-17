@@ -23,13 +23,11 @@ const ControlText = styled.Text`
   color: white;
 `
 
-const ResponderPanel = ({partner, onChoose, isAvailable, dispatch}) => {
-    const chooseLabel = (partner && partner.name) || 'CHOOSE '
+const ResponderPanel = ({onChoose, isAvailable, dispatch}) => {
     const onAvailabilityChange = (value) => {
       dispatch(responderActions.updateInitial({
           available: value
       }))
-      //spatch({type: types.RESPONDER_AVAILABILITY_SET, availability: value})
     }
 
     return <Panel>
@@ -37,16 +35,11 @@ const ResponderPanel = ({partner, onChoose, isAvailable, dispatch}) => {
               <ControlLabel>Available?</ControlLabel>
               <Switch value={isAvailable} onValueChange={onAvailabilityChange}/>
             </ControlGroup>
-            <ControlGroup>
-              <ControlLabel>Partner</ControlLabel>
-              <TouchableOpacity onPress={() => onChoose()}><ControlText>{chooseLabel} ➔</ControlText></TouchableOpacity>
-            </ControlGroup>
           </Panel>
 
 }
 export default connect(state => {
   return {
-    partner: R.path(['auth', 'responder','partner'], state),
     isAvailable: R.path(['auth', 'responder', 'available'], state)
   }
 })(ResponderPanel)
