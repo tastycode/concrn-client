@@ -2,7 +2,9 @@
   "presets": ["react-native"],
   "plugins": [
     ["transform-decorators-legacy"],
-    ["babel-plugin-react-native-config"],
+    ["babel-plugin-react-native-config", {
+        envfile: ".env"
+    }],
     ["module-alias", [
         { "src": "src/lib", "expose": "lib"},
         { "src": "src/images", "expose": "images"},

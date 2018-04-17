@@ -1,10 +1,28 @@
-import React from 'react'
-import { Container, Content, H1, Text, Button, Footer, FooterTab } from 'native-base'
+import React from "react"
+import {
+  Container,
+  Content,
+  H1,
+  Text,
+  Button,
+  Footer,
+  FooterTab,
+} from "native-base"
 
-const OnboardingComponent = function({title, subtitle, ctaText, ctaNext, image}) {
-  return ({navigation}) => (
+const OnboardingComponent = function({
+  title,
+  subtitle,
+  ctaText,
+  ctaNext,
+  image,
+}) {
+  return ({ navigation }) => (
     <Container>
-      <Content padder contentContainerStyle={styles.onboardContentContainer} style={styles.onboardContent}>
+      <Content
+        padder
+        contentContainerStyle={styles.onboardContentContainer}
+        style={styles.onboardContent}
+      >
         {image && image()}
         <H1 style={styles.onboardText}>{title}</H1>
         <Text style={styles.onboardText}>{subtitle}</Text>
@@ -21,28 +39,28 @@ const OnboardingComponent = function({title, subtitle, ctaText, ctaNext, image})
 }
 
 OnboardingComponent.navigationOptions = {
-  header: null
+  header: null,
 }
 
 const styles = {
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
   onboardContentContainer: {
     flex: 1,
-    justifyContent: 'space-around',
-    flexDirection: 'column',
-    alignItems: 'center',
+    justifyContent: "space-around",
+    flexDirection: "column",
+    alignItems: "center",
   },
   onboardText: {
-    color: '#fff'
+    color: "#fff",
   },
   onboardContent: {
-    backgroundColor: '#57367F'
-  }
-};
+    backgroundColor: "#57367F",
+  },
+}
 
-export default OnboardingComponent;
+export default OnboardingComponent

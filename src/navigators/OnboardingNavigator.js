@@ -1,35 +1,34 @@
 import React from "react"
+import { Button } from "react-native"
+import PropTypes from "prop-types"
+import { connect } from "react-redux"
 import { addNavigationHelpers, StackNavigator } from "react-navigation"
-import Icon from "react-native-vector-icons/MaterialCommunityIcons"
-import styled from "styled-components/native"
+import * as types from "actions/types"
 
-import Map from "components/reporter/Map"
+import SplashScreen from "components/nav/Splash"
+import OnboardingWelcome from "components/onboarding/OnboardingWelcome"
+import OnboardingWhen from "components/onboarding/OnboardingWhen"
+import OnboardingWhen3 from "components/onboarding/OnboardingWhen3"
+import OnboardingProfile from "components/onboarding/OnboardingProfile"
+import OnboardingVerify from "components/onboarding/OnboardingVerify"
 
-const Menu = styled(Icon)`
-  padding: 5px;
-`
-
-const ReporterNavigator = StackNavigator(
+export const OnboardingNavigator = StackNavigator(
   {
-    map: { screen: Map },
+    Splash: { screen: SplashScreen },
+    Welcome: { screen: OnboardingWelcome },
+    When: { screen: OnboardingWhen },
+    When3: { screen: OnboardingWhen3 },
+    Profile: { screen: OnboardingProfile },
+    Verify: { screen: OnboardingVerify },
   },
   {
-    navigationOptions: ({ navigation }) => {
-      return {
-        headerLeft: (
-          <Menu
-            name="menu"
-            size={30}
-            color="#fff"
-            onPress={() => navigation.navigate("DrawerOpen")}
-          />
-        ),
-        title: "Concrn",
-        headerStyle: { backgroundColor: "#8a6de9" },
-        headerTitleStyle: { color: "#ffffff" },
-      }
-    },
+    headerMode: "none",
   },
 )
 
-export default ReporterNavigator
+OnboardingNavigator.navigationOptions = {
+  header: null,
+  headerStyle: { backgroundColor: "#8a6d00" },
+}
+
+export default OnboardingNavigator
