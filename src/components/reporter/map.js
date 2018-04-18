@@ -2,7 +2,14 @@ import React from "react"
 import { connect } from "react-redux"
 import * as types from "actions/types"
 
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native"
+import {
+  TextInput,
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native"
+import reverseGeocode from "services/reverseGeocode"
 import MapView from "react-native-maps"
 import styled from "styled-components/native"
 import * as actions from "actions/reporter"
@@ -28,6 +35,26 @@ const MarkerContainer = styled.View`
   background-color: transparent;
 `
 
+const AddressPreviewContainer = styled(View)`
+  shadow-color: black;
+  shadow-opacity: 0.3;
+  shadow-radius: 7px;
+  shadow-offset: 5px 2px;
+  background: white;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  display: flex;
+  padding: 15px;
+  flex-direction: row;
+`
+
+const AddressPreviewInput = styled(TextInput)`
+  border-width: 0px;
+  flex: 1;
+`
+
 const Marker = styled.Image``
 
 const styles = StyleSheet.create({
@@ -46,11 +73,32 @@ class Map extends React.Component {
       longitude: -122.4324,
       latitudeDelta: 0.0922,
       longitudeDelta: 0.0421,
+      addressText: "",
+      googlePlaceId: null,
+      addressTextSelection: { start: 0, end: 0 },
     },
   }
 
-  _regionChanged(region) {
-    this.setState({ region })
+  _regionChanged = async region => {
+    const {
+      results: [firstResult],
+    } = await reverseGeocode(region)
+    const { formatted_address, place_id } = firstResult
+    this.setState({
+      region,
+      addressText: formatted_address,
+      placeId: place_id,
+      addressTextSelection: {
+        start: 0,
+        end: 0,
+      },
+    })
+  }
+
+  _addressSelectionChanged = ({ nativeEvent: { selection } }) => {
+    this.setState({
+      addressTextSelection: selection,
+    })
   }
 
   createReport(args) {
@@ -65,7 +113,6 @@ class Map extends React.Component {
     const onChoose = () => this.modal.open()
     const onCancel = () => this.modal.close()
     const onChosen = responder => {
-      console.log("chosen", responder)
       this.modal.close()
       this.props.dispatch({ type: types.RESPONDER_PARTNER_CHOSEN, responder })
     }
@@ -79,6 +126,13 @@ class Map extends React.Component {
             region={this.state.region}
             onRegionChange={this._regionChanged.bind(this)}
           />
+          <AddressPreviewContainer>
+            <AddressPreviewInput
+              onSelectionChange={this._addressSelectionChanged}
+              selection={this.state.addressTextSelection}
+              value={this.state.addressText}
+            />
+          </AddressPreviewContainer>
           <MarkerContainer pointerEvents={"none"}>
             <Marker source={require("images/pin.png")} />
           </MarkerContainer>
