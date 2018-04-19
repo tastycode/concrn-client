@@ -1,6 +1,6 @@
 import React from "react"
 import { connect } from "react-redux"
-import styled from "styled-components/native"
+import styled from "styled-components"
 import { View, Text, Switch } from "react-native"
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 import * as types from "actions/types"

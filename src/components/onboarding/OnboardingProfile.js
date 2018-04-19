@@ -13,7 +13,7 @@ import {
   Label,
 } from "native-base"
 import { View } from "react-native"
-import styled from "styled-components/native"
+import styled from "styled-components"
 import { connect } from "react-redux"
 import * as types from "actions/types"
 import { reduxForm, Field } from "redux-form"

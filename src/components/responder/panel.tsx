@@ -1,7 +1,7 @@
 import React from "react"
 import { connect } from "react-redux"
 import { TouchableOpacity, Switch, Text } from "react-native"
-import styled from "styled-components/native"
+import styled from "styled-components"
 import * as R from "ramda"
 import * as types from "actions/types"
 import * as responderActions from "actions/responder"

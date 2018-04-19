@@ -15,8 +15,7 @@ export function createReport({ latitude, longitude }) {
       type: types.REPORT_STORE,
       reportId: response.id,
     })
-    alert("mock: immediate harm")
-    //    dispatch(NavigationActions.navigate({routeName: 'chat'}))
+    dispatch(NavigationActions.navigate({ routeName: "promptHarm" }))
   }
 }
 

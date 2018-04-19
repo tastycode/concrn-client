@@ -11,7 +11,7 @@ import {
 } from "react-native"
 import reverseGeocode from "services/reverseGeocode"
 import MapView from "react-native-maps"
-import styled from "styled-components/native"
+import styled from "styled-components"
 import * as actions from "actions/reporter"
 import ResponderPanel from "components/responder/Panel"
 import Modal from "react-native-modalbox"

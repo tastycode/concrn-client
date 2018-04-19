@@ -1,20 +1,17 @@
 {
   "presets": ["react-native"],
   "plugins": [
-    ["transform-decorators-legacy"],
+    ["babel-plugin-transform-decorators-legacy"],
     ["babel-plugin-react-native-config", {
         envfile: ".env"
     }],
-    ["module-alias", [
-        { "src": "src/lib", "expose": "lib"},
-        { "src": "src/images", "expose": "images"},
-        { "src": "src/services", "expose": "services"},
-        { "src": "src/components", "expose": "components"},
-        { "src": "src/actions", "expose": "actions"},
-        { "src": "src/reducers", "expose": "reducers"},
-        { "src": "src/ui", "expose": "ui"},
-        { "src": "src/navigators", "expose": "navigators"}
-      ]
+    ["module-resolver", {
+        root: ["./src/**"],
+        extensions: [".js",".tsx"],
+        alias: {
+          "styled-components": "styled-components/native",
+        }
+      }
     ]
   ]
 }
