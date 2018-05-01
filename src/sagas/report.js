@@ -16,8 +16,23 @@ function* reportCreate(action) {
   yield put(NavigationActions.navigate({ routeName: "reportList" }))
 }
 
+function* reportList() {
+  const reports = yield call(ConcrnClient.report.index, {})
+  yield put({
+    type: types.ENTITIES_RECEIVED,
+    payload: {
+      type: "report",
+      windowName: "myReports",
+      entities: reports,
+    },
+  })
+}
+
 function* reportSagas() {
-  yield all([fork(createWatchSaga(types.REPORT_CREATE, reportCreate))])
+  yield all([
+    fork(createWatchSaga(types.REPORT_CREATE, reportCreate)),
+    fork(createWatchSaga(types.REPORT_LIST, reportList)),
+  ])
 }
 
 export default reportSagas

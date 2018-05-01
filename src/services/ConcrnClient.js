@@ -19,7 +19,7 @@ function apiRequest(method, path) {
   }
 }
 
-function jsonApiPostRequest(path) {
+function jsonApiCreateRequest(path) {
   return async (data, requestParams) => {
     const snakeData = camel2snake(data)
     const requestData = {
@@ -33,6 +33,18 @@ function jsonApiPostRequest(path) {
   }
 }
 
+function jsonApiIndexRequest(path) {
+  return async (data, requestParams) => {
+    const { data: rows } = await apiRequest("GET", path)(data)
+    return rows.map(row => {
+      return {
+        id: row.id,
+        ...snake2camel(row.attributes),
+      }
+    })
+  }
+}
+
 export default {
   device: {
     create: apiRequest("POST", "/devices"),
@@ -43,8 +55,9 @@ export default {
     refresh: apiRequest("POST", "/tokens/refresh"),
   },
   report: {
-    create: jsonApiPostRequest("/reports"),
+    create: jsonApiCreateRequest("/reports"),
     update: apiRequest("PATCH", "/reports/:id"),
+    index: jsonApiIndexRequest("/reports"),
   },
   responder: {
     validate: apiRequest("GET", "/responders/device"),

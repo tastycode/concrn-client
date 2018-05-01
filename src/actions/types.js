@@ -5,6 +5,9 @@ export const AUTH_VERIFY = "[auth] verify"
 export const ONBOARDING_STORE = "[onboarding] store"
 export const REPORT_STORE = "[report] store"
 export const REPORT_CREATE = "[report] create"
+export const REPORT_LIST = "[report] list"
+
+export const ENTITIES_RECEIVED = "[entities] received"
 
 export const REPORTER_MAP_REGION_CHANGED = "[reporter] map region changed"
 export const REPORTER_REPORT_CREATED = "[reporter] report created"

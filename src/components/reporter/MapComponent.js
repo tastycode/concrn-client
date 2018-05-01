@@ -107,7 +107,8 @@ class MapComponent extends React.Component {
       type: types.REPORT_STORE,
       payload: {
         address: this.state.addressText,
-        ...this.state.region,
+        lat: this.state.region.latitude,
+        long: this.state.region.longitude,
       },
     })
     this.props.dispatch(NavigationActions.navigate({ routeName: "promptHarm" }))

@@ -5,6 +5,7 @@ import * as authReducer from "./auth"
 import * as mapReducer from "./map"
 import * as reportReducer from "./report"
 import * as responderReducer from "./responder"
+import * as entitiesReducer from "./entities"
 
 export default combineReducers({
   ...navigationReducer,
@@ -12,5 +13,6 @@ export default combineReducers({
   ...mapReducer,
   ...reportReducer,
   ...responderReducer,
+  ...entitiesReducer,
   form: formReducer,
 })
