@@ -1,5 +1,6 @@
 import React from "react"
 import thunkMiddleware from "redux-thunk"
+import createSagaMiddleware from "redux-saga"
 import { AppRegistry, AsyncStorage, View } from "react-native"
 import { Provider } from "react-redux"
 import ActionCable from "react-native-actioncable"
@@ -9,7 +10,9 @@ import { persistStore, autoRehydrate } from "redux-persist"
 import { Store } from "redux"
 import { createStore, applyMiddleware, compose } from "redux"
 
+import * as types from 'actions/types'
 import reducer from "./reducers"
+import rootSaga from './sagas/index'
 import AppNavigator from "./navigators/AppNavigator"
 
 // See network requests in debugger
@@ -20,6 +23,8 @@ XMLHttpRequest = GLOBAL.originalXMLHttpRequest
 // Remove once react-navigation is updated: https://github.com/react-community/react-navigation/issues/1330
 console.ignoredYellowBox = ["Warning: BackAndroid"]
 
+const sagaMiddleware = createSagaMiddleware()
+
 // Middleware that logs actions
 const loggerMiddleware = createLogger({ predicate: () => __DEV__ })
 
@@ -28,7 +33,7 @@ function configureStore(initialState) {
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
   const enhancer = composeEnhancers(
     autoRehydrate(),
-    applyMiddleware(thunkMiddleware, loggerMiddleware)
+    applyMiddleware(sagaMiddleware,  loggerMiddleware)
   )
   const store = createStore(reducer, initialState, enhancer)
   /* this is an attempt at avoiding the errors we encounter when hot-module loading
@@ -51,14 +56,15 @@ const App = class App extends React.Component {
   constructor() {
     super()
     this.store = configureStore({})
+    sagaMiddleware.run(rootSaga)
   }
   state = {
     rehydrated: false
   }
   componentWillMount() {
-    let persistor = persistStore(this.store, { storage: AsyncStorage }, () => {
-      /*https://github.com/rt2zz/redux-persist/issues/395*/
+    let persistor = persistStore(this.store, { storage: AsyncStorage, whitelist: ['auth'] }, () => {
       this.setState({ rehydrated: true })
+      this.store.dispatch({type: types.AUTH_CHECK})
     })
   }
   render() {

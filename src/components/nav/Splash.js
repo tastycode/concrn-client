@@ -11,14 +11,18 @@ import * as R from "ramda"
 export default class Splass extends React.Component {
   componentWillMount() {
     const { isRegistered, navigation } = this.props
-    if (isRegistered) {
-      navigation.navigate("map")
-    } else {
-      navigation.navigate("Welcome")
-    }
+    //if (isRegistered) {
+    //navigation.navigate("map")
+    //} else {
+    //navigation.navigate("Welcome")
+    //}
   }
 
   render() {
-    return <View />
+    return (
+      <View>
+        <Text>Waiting for initial login check</Text>
+      </View>
+    )
   }
 }

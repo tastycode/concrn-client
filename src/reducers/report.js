@@ -9,7 +9,7 @@ export const report = createReducer(
     [types.REPORT_STORE](state, action) {
       return {
         ...state,
-        reportId: action.reportId,
+        ...action.payload,
       }
     },
     [types.REPORT_MESSAGE_RECEIVED](state, action) {

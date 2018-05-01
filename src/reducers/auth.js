@@ -8,13 +8,13 @@ export const auth = createReducer(
     [types.ONBOARDING_STORE](state, action) {
       return {
         ...state,
-        ...action,
+        ...action.payload,
       }
     },
     [types.ONBOARDING_FAIL](state, action) {
       return {
         ...state,
-        ...action,
+        ...action.payload,
       }
     },
   },

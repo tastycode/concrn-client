@@ -1,5 +1,6 @@
 import React from "react"
 import { connect } from "react-redux"
+import { NavigationActions } from "react-navigation"
 import * as types from "actions/types"
 
 import {
@@ -12,7 +13,6 @@ import {
 import reverseGeocode from "services/reverseGeocode"
 import MapView from "react-native-maps"
 import styled from "styled-components"
-import * as actions from "actions/reporter"
 import ResponderPanel from "components/responder/Panel"
 import Modal from "react-native-modalbox"
 import * as R from "ramda"
@@ -66,7 +66,8 @@ const styles = StyleSheet.create({
   },
 })
 
-class Map extends React.Component {
+class MapComponent extends React.Component {
+  // avoid conflict with Map
   state = {
     region: {
       latitude: 37.78825,
@@ -102,11 +103,14 @@ class Map extends React.Component {
   }
 
   createReport(args) {
-    this.props.dispatch(
-      actions.createReport({
+    this.props.dispatch({
+      type: types.REPORT_STORE,
+      payload: {
+        address: this.state.addressText,
         ...this.state.region,
-      }),
-    )
+      },
+    })
+    this.props.dispatch(NavigationActions.navigate({ routeName: "promptHarm" }))
   }
 
   render() {
@@ -151,4 +155,4 @@ export default connect(state => {
       state,
     ),
   }
-})(Map)
+})(MapComponent)

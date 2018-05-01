@@ -16,7 +16,6 @@ import { View } from "react-native"
 import { connect } from "react-redux"
 import * as types from "actions/types"
 import { reduxForm, Field } from "redux-form"
-import { verify } from "actions/onboarding"
 
 const renderField = ({ input, label, meta: { touched, error }, ...custom }) => (
   <Item>
@@ -32,11 +31,10 @@ const renderField = ({ input, label, meta: { touched, error }, ...custom }) => (
 
 const OnboardingVerify = ({ error, handleSubmit }) => {
   const onSubmit = (values, dispatch) => {
-    dispatch(
-      verify({
-        ...values,
-      }),
-    )
+    dispatch({
+      type: types.AUTH_VERIFY,
+      payload: values,
+    })
   }
 
   return (

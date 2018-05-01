@@ -6,7 +6,7 @@
         envfile: ".env"
     }],
     ["module-resolver", {
-        root: ["./src/**"],
+        root: ["./src"],
         extensions: [".js",".tsx"],
         alias: {
           "styled-components": "styled-components/native",

@@ -3,7 +3,7 @@ import { NavigationActions } from "react-navigation"
 import * as types from "actions/types"
 
 const initialState = AppNavigator.router.getStateForAction(
-  AppNavigator.router.getActionForPathAndParams("Onboarding"),
+  AppNavigator.router.getActionForPathAndParams("Splash"),
 )
 
 export const nav = (state = initialState, action) => {

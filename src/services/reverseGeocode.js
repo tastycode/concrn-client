@@ -4,7 +4,6 @@ const makeDebouncer = msBetween => {
   let lastCall
   let endOfThrottleTimer
   return () => {
-    console.log("invoked a debouncer", { lastCall, endOfThrottleTimer })
     return new Promise((resolve, reject) => {
       const resolveBounce = () => {
         if (endOfThrottleTimer) {

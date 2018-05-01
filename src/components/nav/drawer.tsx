@@ -43,11 +43,11 @@ const Drawer = ({ isResponder, navigation }) => {
   return (
     <DrawerOuterContainer>
       <DrawerInnerContainer>
-        <Item>
+        <Item onPress={() => navigation.navigate('map')}>
           <ItemIcon name="crosshairs-gps" size={24} />
           <ItemLabel>Report Crisis</ItemLabel>
         </Item>
-        <Item>
+        <Item onPress={() => navigation.navigate('reportList')}>
           <ItemIcon name="note-multiple-outline" size={24} />
           <ItemLabel>My Reports</ItemLabel>
         </Item>

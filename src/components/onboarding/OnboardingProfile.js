@@ -18,7 +18,6 @@ import { connect } from "react-redux"
 import * as types from "actions/types"
 import { reduxForm, Field } from "redux-form"
 import DeviceInfo from "react-native-device-info"
-import { validate } from "actions/onboarding"
 
 const FormControls = styled.View`
   padding-top: 30px;
@@ -47,12 +46,13 @@ const renderField = ({ input, label, meta: { touched, error }, ...custom }) => (
 const OnboardingProfile = ({ handleSubmit }) => {
   const onSubmit = (values, dispatch) => {
     let deviceId = DeviceInfo.getUniqueID()
-    dispatch(
-      validate({
+    dispatch({
+      type: types.AUTH_REQUEST,
+      payload: {
         ...values,
         deviceId,
-      }),
-    )
+      },
+    })
   }
 
   return (
