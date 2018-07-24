@@ -16,8 +16,9 @@ import { NavigationActions } from "react-navigation"
 
 function* authVerify(action) {
   const { code } = action.payload
-  const phone = yield select(state => R.path(["auth", "phone"], state))
+  const { name, phone } = yield select(state => state.auth)
   const response = yield call(ConcrnClient.device.verify, {
+    name,
     phone,
     code,
   })
@@ -73,8 +74,6 @@ function* authCheck() {
       throw new Error("[auth] no token detected")
     }
   } catch (e) {
-    console.warn(e)
-    debugger
     // something went wrong with checking auth, assuming they are not logged in and directing to onboarding
     yield put(NavigationActions.navigate({ routeName: "Welcome" }))
   }

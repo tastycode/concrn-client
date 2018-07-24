@@ -106,6 +106,7 @@ class MapComponent extends React.Component {
     this.props.dispatch({
       type: types.REPORT_STORE,
       payload: {
+        googlePlaceId: this.state.placeId,
         address: this.state.addressText,
         lat: this.state.region.latitude,
         long: this.state.region.longitude,
