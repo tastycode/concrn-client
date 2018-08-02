@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "format": "eslint --fix 'src/**/*.js' && prettier-tslint fix 'src/**/*.tsx'",
+    "format":
+      "eslint --fix 'src/**/*.js' && prettier-tslint fix 'src/**/*.tsx'",
     "precommit": "lint-staged",
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "build:staging":
@@ -76,10 +77,7 @@
   },
   "lint-staged": {
     "linters": {
-      "src/**/*.js": [
-        "eslint --fix",
-        "git add"
-      ]
+      "src/**/*.js": ["eslint --fix", "git add"]
     }
   }
 }

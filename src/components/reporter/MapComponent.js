@@ -4,6 +4,7 @@ import { NavigationActions } from "react-navigation"
 import * as types from "actions/types"
 
 import {
+  Geolocation,
   TextInput,
   View,
   Text,
@@ -74,10 +75,28 @@ class MapComponent extends React.Component {
       longitude: -122.4324,
       latitudeDelta: 0.0922,
       longitudeDelta: 0.0421,
-      addressText: "",
-      googlePlaceId: null,
-      addressTextSelection: { start: 0, end: 0 },
     },
+    addressText: "",
+    addressTextSelection: { start: 0, end: 0 },
+    placeId: null,
+  }
+
+  componentDidMount = async () => {
+    navigator.geolocation.getCurrentPosition(position => {
+      if (!position.coords) return
+      this.setState(
+        {
+          region: {
+            ...this.state.region,
+            ...position.coords,
+          },
+        },
+        () => {
+          this._regionChanged(this.state.region)
+          window.someComponent = this
+        },
+      )
+    })
   }
 
   _regionChanged = async region => {
@@ -85,15 +104,20 @@ class MapComponent extends React.Component {
       results: [firstResult],
     } = await reverseGeocode(region)
     const { formatted_address, place_id } = firstResult
-    this.setState({
-      region,
-      addressText: formatted_address,
-      placeId: place_id,
-      addressTextSelection: {
-        start: 0,
-        end: 0,
+    this.setState(
+      {
+        region,
+        addressText: formatted_address,
+        placeId: place_id,
+        addressTextSelection: {
+          start: 0,
+          end: 0,
+        },
       },
-    })
+      () => {
+        this.addressInput.setNativeProps({ selection: { start: 0, end: 0 } })
+      },
+    )
   }
 
   _addressSelectionChanged = ({ nativeEvent: { selection } }) => {
@@ -123,6 +147,7 @@ class MapComponent extends React.Component {
       this.props.dispatch({ type: types.RESPONDER_PARTNER_CHOSEN, responder })
     }
 
+    console.log("selection", this.state.addressTextSelection)
     return (
       <View style={{ flex: 1 }}>
         {this.props.isResponder && <ResponderPanel />}
@@ -134,6 +159,9 @@ class MapComponent extends React.Component {
           />
           <AddressPreviewContainer>
             <AddressPreviewInput
+              innerRef={addressInput => {
+                this.addressInput = addressInput
+              }}
               onSelectionChange={this._addressSelectionChanged}
               selection={this.state.addressTextSelection}
               value={this.state.addressText}
