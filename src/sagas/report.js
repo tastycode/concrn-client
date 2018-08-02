@@ -11,6 +11,7 @@ function* reportCreate(action) {
   const response = yield call(ConcrnClient.report.create, action.payload)
   yield call(
     Alert.alert,
+    `Report submitted`,
     `Your report has been submitted. You will receive a text shortly that may ask for more information`,
   )
   yield put(NavigationActions.navigate({ routeName: "reportList" }))
