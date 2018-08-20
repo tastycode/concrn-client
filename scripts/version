@@ -1,0 +1,17 @@
+#!/usr/bin/env node
+const fs = require("fs");
+const { version } = require("../package.json");
+const [major, minor, patch] = version
+    .split(".")
+    .map( s => parseInt(s))
+const derivedLinearVersion = major * 1000 + minor * 100 + patch;
+const env = process.env.NODE_ENV;
+if (!env) {
+  throw new Error("NODE_ENV required");
+}
+const path = `./.env.${env.toLowerCase()}`;
+const contents = fs.readFileSync(path).toString();
+const nextContents = contents
+  .replace(/VERSION=.*/, `VERSION=${version}`)
+  .replace(/VERSIONCODE=.*/, `VERSIONCODE=${derivedLinearVersion}`);
+fs.writeFileSync(path, nextContents)
