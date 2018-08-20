@@ -1,20 +1,24 @@
 import axios from "axios"
 import Config from "react-native-config"
 import { camel2snake, snake2camel } from "camel-snake"
-let globalHeaders = {}
+let globalHeaders = {
+  "Content-Type": "application/json",
+}
 function apiRequest(method, path) {
   return async (data, requestParams) => {
     const replacedPath = Object.keys(data).reduce((path, key) => {
       return path.replace(`:${key}`, data[key])
     }, path)
     const apiUrl = Config.API_URL
-    const response = await axios({
+    const requestConfig = {
       method,
       url: `${apiUrl}/${replacedPath}`,
       data,
       headers: globalHeaders,
       ...requestParams,
-    })
+    }
+    console.log({ requestConfig })
+    const response = await axios(requestConfig)
     return response.data
   }
 }
