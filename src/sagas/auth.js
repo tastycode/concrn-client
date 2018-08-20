@@ -56,7 +56,7 @@ function* authCheck() {
     if (auth.token) {
       ConcrnClient.configureAuthentication({ token: auth.token })
       try {
-        identity = yield call(ConcrnClient.token.validate, {})
+        identity = yield call(ConcrnClient.token.validate)
       } catch (e) {
         identity = yield call(ConcrnClient.token.refresh, {
           refresh_token: auth.refreshToken,

@@ -1,6 +1,7 @@
 import React from "react"
 import { connect } from "react-redux"
 import { NavigationActions } from "react-navigation"
+import { PermissionsAndroid } from "react-native"
 import * as types from "actions/types"
 
 import {
@@ -82,21 +83,30 @@ class MapComponent extends React.Component {
   }
 
   componentDidMount = async () => {
-    navigator.geolocation.getCurrentPosition(position => {
-      if (!position.coords) return
-      this.setState(
-        {
-          region: {
-            ...this.state.region,
-            ...position.coords,
+    const locationGranted = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+      {
+        title: "Concrn Location Permission",
+        message: "Concrn uses your location to make reporting a crisis faster",
+      },
+    )
+    if (locationGranted === PermissionsAndroid.RESULTS.GRANTED) {
+      navigator.geolocation.getCurrentPosition(position => {
+        if (!position.coords) return
+        this.setState(
+          {
+            region: {
+              ...this.state.region,
+              ...position.coords,
+            },
           },
-        },
-        () => {
-          this._regionChanged(this.state.region)
-          window.someComponent = this
-        },
-      )
-    })
+          () => {
+            this._regionChanged(this.state.region)
+            window.someComponent = this
+          },
+        )
+      })
+    }
   }
 
   _regionChanged = async region => {
@@ -181,8 +191,10 @@ class MapComponent extends React.Component {
 
 export default connect(state => {
   return {
-    isResponder: R.pipe(R.path(["auth", "responderId"]), R.isNil(), R.not())(
-      state,
-    ),
+    isResponder: R.pipe(
+      R.path(["auth", "responderId"]),
+      R.isNil(),
+      R.not(),
+    )(state),
   }
 })(MapComponent)

@@ -61,7 +61,7 @@ const FinishReportButtonContainer = styled.View`
 const mapStateToProps = state => ({ report: state.report })
 
 const renderPromptNotesForField = ({ input, ...props }) => {
-  return <NotesTextInput multiline={true} {...input} />
+  return <NotesTextInput multiline={true} {...input} {...props} />
 }
 
 const PromptNotes = ({ dispatch, report, handleSubmit }) => {
@@ -81,6 +81,7 @@ const PromptNotes = ({ dispatch, report, handleSubmit }) => {
       <Field
         label="Notes"
         name={"reporterNotes"}
+        placeholder="e.g. A young woman on Market St. has been yelling at herself for over an hour. I'm really worried about her."
         component={renderPromptNotesForField}
       />
       <FinishReportButtonContainer>
