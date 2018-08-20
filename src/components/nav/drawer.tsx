@@ -59,11 +59,6 @@ const Drawer = ({ isResponder, navigation }) => {
           <ItemIcon name="help-circle" size={24} />
           <ItemLabel>Help</ItemLabel>
         </Item>
-        <Item>
-          <ItemIcon name="phone-settings" size={24} />
-          <ItemLabel>Responder</ItemLabel>
-          <Switch value={isResponder} onValueChange={toggleResponder} />
-        </Item>
       </DrawerInnerContainer>
     </DrawerOuterContainer>
   )
