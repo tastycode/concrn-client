@@ -64,7 +64,7 @@ const OnboardingProfile = ({ handleSubmit }) => {
       >
         <TopPaddedView />
         <Text padder style={styles.onboardText}>
-          We need your name and number to follow up with your reports
+          We need your name and number to follow up with your reports.
         </Text>
         <FormControls>
           <Field name="name" component={renderField} label="Name" />

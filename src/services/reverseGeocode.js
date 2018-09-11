@@ -26,7 +26,9 @@ const makeDebouncer = msBetween => {
   }
 }
 
-if (!Geocoder.isInit) Geocoder.init(Config.GOOGLE_MAPS_GEOCODING_API_KEY)
+if (!Geocoder.isInit) {
+  Geocoder.init(Config.GOOGLE_MAPS_GEOCODING_API_KEY)
+}
 
 const debouncer = makeDebouncer(2000)
 
