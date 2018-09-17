@@ -53,21 +53,26 @@ function* authRequest(action) {
 function* authCheck() {
   try {
     const auth = yield select(R.path(["auth"]))
-    if (auth.token) {
+    if (auth.token || auth.refreshToken) {
       ConcrnClient.configureAuthentication({ token: auth.token })
       try {
         identity = yield call(ConcrnClient.token.validate)
       } catch (e) {
-        identity = yield call(ConcrnClient.token.refresh, {
-          refresh_token: auth.refreshToken,
-        })
-        yield put({
-          type: types.ONBOARDING_STORE,
-          payload: {
-            token: identity.token,
-          },
-        })
-        console.log("new token received")
+        console.log("caught error in validate" + e.toString())
+        try {
+          identity = yield call(ConcrnClient.token.refresh, {
+            refresh_token: auth.refreshToken,
+          })
+          yield put({
+            type: types.ONBOARDING_STORE,
+            payload: {
+              token: identity.jwt,
+            },
+          })
+          ConcrnClient.configureAuthentication({ token: identity.jwt })
+        } catch (e) {
+          alert("error in refresh " + e.toString())
+        }
       }
       yield put(NavigationActions.navigate({ routeName: "map" }))
     } else {

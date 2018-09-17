@@ -7,6 +7,7 @@ import * as types from "actions/types"
 import {
   Geolocation,
   TextInput,
+  Platform,
   View,
   Text,
   StyleSheet,
@@ -82,15 +83,24 @@ class MapComponent extends React.Component {
     placeId: null,
   }
 
+  requestLocationPermissions = async () => {
+    if (Platform.OS === "ios") {
+      return true
+    } else {
+      const locationGranted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        {
+          title: "Concrn Location Permission",
+          message:
+            "Concrn uses your location to make reporting a crisis faster",
+        },
+      )
+      return locationGranted === PermissionsAndroid.RESULTS.GRANTED
+    }
+  }
   componentDidMount = async () => {
-    const locationGranted = await PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-      {
-        title: "Concrn Location Permission",
-        message: "Concrn uses your location to make reporting a crisis faster",
-      },
-    )
-    if (locationGranted === PermissionsAndroid.RESULTS.GRANTED) {
+    const locationGranted = await this.requestLocationPermissions()
+    if (locationGranted) {
       navigator.geolocation.getCurrentPosition(position => {
         if (!position.coords) return
         this.setState(

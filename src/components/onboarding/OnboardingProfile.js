@@ -12,7 +12,7 @@ import {
   Item,
   Label,
 } from "native-base"
-import { View } from "react-native"
+import { KeyboardAvoidingView, View, Keyboard } from "react-native"
 import styled from "styled-components"
 import { connect } from "react-redux"
 import * as types from "actions/types"
@@ -76,13 +76,15 @@ const OnboardingProfile = ({ handleSubmit }) => {
           />
         </FormControls>
       </Content>
-      <Footer>
-        <FooterTab>
-          <Button full onPress={handleSubmit(onSubmit)}>
-            <Text>Next</Text>
-          </Button>
-        </FooterTab>
-      </Footer>
+      <KeyboardAvoidingView behavior="padding">
+        <Footer>
+          <FooterTab>
+            <Button full onPress={handleSubmit(onSubmit)}>
+              <Text>Next</Text>
+            </Button>
+          </FooterTab>
+        </Footer>
+      </KeyboardAvoidingView>
     </Container>
   )
 }
@@ -105,6 +107,7 @@ const styles = {
   },
   onboardContent: {
     backgroundColor: "#57367F",
+    flex: 1,
   },
 }
 

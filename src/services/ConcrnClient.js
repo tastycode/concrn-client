@@ -13,12 +13,15 @@ function apiRequest(method, path) {
     const requestConfig = {
       method,
       url: `${apiUrl}/${replacedPath}`,
-      data,
       headers: globalHeaders,
       ...requestParams,
     }
+    if (Object.keys(data).length > 0) {
+      requestConfig.data = data
+    }
     console.log({ requestConfig })
     const response = await axios(requestConfig)
+    console.log({ response })
     return response.data
   }
 }
@@ -68,6 +71,6 @@ export default {
     update: apiRequest("PUT", "/responders/:id"),
   },
   configureAuthentication({ token }) {
-    globalHeaders["Authorization"] = `Bearer ${token}`
+    if (token) globalHeaders["Authorization"] = `Bearer ${token}`
   },
 }

@@ -106,24 +106,29 @@ const reportCard = ({ item: report }) => {
   )
 }
 
-const ReportList = ({ dispatch, reportEntities = {} }) => {
-  dispatch({
-    type: types.REPORT_LIST,
-  })
-  const reports = reportEntities.myReports
-    ? reportEntities.myReports.ids.map(id => reportEntities.byId[id])
-    : []
-  return (
-    <Container>
-      <Content>
-        <FlatList
-          data={reports}
-          renderItem={reportCard}
-          keyExtractor={item => item.id}
-        />
-      </Content>
-    </Container>
-  )
+class ReportList extends React.Component {
+  componentWillMount() {
+    this.props.dispatch({
+      type: types.REPORT_LIST,
+    })
+  }
+  render() {
+    const reportEntities = this.props.reportEntities || { myReports: null }
+    const reports = reportEntities.myReports
+      ? reportEntities.myReports.ids.map(id => reportEntities.byId[id])
+      : []
+    return (
+      <Container>
+        <Content>
+          <FlatList
+            data={reports}
+            renderItem={reportCard}
+            keyExtractor={item => item.id}
+          />
+        </Content>
+      </Container>
+    )
+  }
 }
 
 export default R.pipe(connect(mapStateToProps))(ReportList)

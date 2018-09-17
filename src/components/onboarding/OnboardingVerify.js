@@ -12,11 +12,14 @@ import {
   Item,
   Label,
 } from "native-base"
-import { View } from "react-native"
+import { KeyboardAvoidingView, View } from "react-native"
 import { connect } from "react-redux"
 import * as types from "actions/types"
 import { reduxForm, Field } from "redux-form"
-
+import styled from "styled-components"
+const TopPaddedView = styled(View)`
+  padding-top: 20px;
+`
 const renderField = ({ input, label, meta: { touched, error }, ...custom }) => (
   <Item>
     <Input
@@ -44,6 +47,7 @@ const OnboardingVerify = ({ error, handleSubmit }) => {
         contentContainerStyle={styles.onboardContentContainer}
         style={styles.onboardContent}
       >
+        <TopPaddedView />
         <Text style={styles.onboardText}>
           We've sent you a text with a 4-digit code, Enter it here to continue
         </Text>
@@ -55,13 +59,15 @@ const OnboardingVerify = ({ error, handleSubmit }) => {
         />
         {error && <Text>{error}</Text>}
       </Content>
-      <Footer>
-        <FooterTab>
-          <Button full onPress={handleSubmit(onSubmit)}>
-            <Text>Next</Text>
-          </Button>
-        </FooterTab>
-      </Footer>
+      <KeyboardAvoidingView behavior="padding">
+        <Footer>
+          <FooterTab>
+            <Button full onPress={handleSubmit(onSubmit)}>
+              <Text>Next</Text>
+            </Button>
+          </FooterTab>
+        </Footer>
+      </KeyboardAvoidingView>
     </Container>
   )
 }

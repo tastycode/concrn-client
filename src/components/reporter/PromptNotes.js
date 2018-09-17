@@ -1,6 +1,12 @@
 import React from "react"
 import R from "ramda"
-import { Text, TextInput, TouchableOpacity, View } from "react-native"
+import {
+  KeyboardAvoidingView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native"
 import { Field, reduxForm } from "redux-form"
 import { connect } from "react-redux"
 import styled from "styled-components"
@@ -24,7 +30,7 @@ const NotesText = styled.Text`
 
 const NotesTextInput = styled(TextInput)`
   font-size: ${typeSize.m};
-  flex: 3
+  flex: 3;
   padding: 20px;
   background-color: white;
 `
@@ -56,6 +62,7 @@ const PromptButton = ({ text, ...props }) => {
 const FinishReportButtonContainer = styled.View`
   background: white;
   padding: 20px;
+  padding-bottom: 40px;
 `
 
 const mapStateToProps = state => ({ report: state.report })
@@ -84,9 +91,11 @@ const PromptNotes = ({ dispatch, report, handleSubmit }) => {
         placeholder="e.g. A young woman on Market St. has been yelling at herself for over an hour. I'm really worried about her."
         component={renderPromptNotesForField}
       />
-      <FinishReportButtonContainer>
-        <PromptButton text="Next" onPress={handleSubmit(onSubmit)} />
-      </FinishReportButtonContainer>
+      <KeyboardAvoidingView behavior="padding">
+        <FinishReportButtonContainer>
+          <PromptButton text="Next" onPress={handleSubmit(onSubmit)} />
+        </FinishReportButtonContainer>
+      </KeyboardAvoidingView>
     </NotesContainer>
   )
 }
